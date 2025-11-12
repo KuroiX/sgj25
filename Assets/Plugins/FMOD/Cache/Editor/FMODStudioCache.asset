@@ -1,0 +1,662 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8830399411812790807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Voicelines/female-004_fuck
+  m_EditorClassIdentifier: 
+  Path: event:/Voicelines/female-004_fuck
+  Guid:
+    Data1: -1658214644
+    Data2: 1153736887
+    Data3: -661611342
+    Data4: -550381403
+  Banks:
+  - {fileID: 3809623930836664562}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-8603008489402480362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/TestMusic
+  m_EditorClassIdentifier: 
+  Path: event:/TestMusic
+  Guid:
+    Data1: 574756800
+    Data2: 1144311751
+    Data3: -171322234
+    Data4: 811516067
+  Banks:
+  - {fileID: -3723229476501375249}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 48000
+--- !u!114 &-8324805296527452992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/gameMusic1
+  m_EditorClassIdentifier: 
+  Path: event:/gameMusic1
+  Guid:
+    Data1: 1424249009
+    Data2: 1126526177
+    Data3: 719588241
+    Data4: -1012285435
+  Banks:
+  - {fileID: 3809623930836664562}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 78498
+--- !u!114 &-7541276353725538653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/gameMusic2
+  m_EditorClassIdentifier: 
+  Path: event:/gameMusic2
+  Guid:
+    Data1: 1784860027
+    Data2: 1118895528
+    Data3: 1229934478
+    Data4: 2000753627
+  Banks:
+  - {fileID: 3809623930836664562}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 78498
+--- !u!114 &-7149610911304624540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Voicelines/male-001_ohfuck_long
+  m_EditorClassIdentifier: 
+  Path: event:/Voicelines/male-001_ohfuck_long
+  Guid:
+    Data1: 1483738213
+    Data2: 1164376783
+    Data3: 2122644390
+    Data4: -2068542563
+  Banks:
+  - {fileID: 3809623930836664562}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-7007362924701739446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Voicelines/female-003_grrrr
+  m_EditorClassIdentifier: 
+  Path: event:/Voicelines/female-003_grrrr
+  Guid:
+    Data1: -1575390703
+    Data2: 1267413376
+    Data3: 1917398457
+    Data4: 1807305971
+  Banks:
+  - {fileID: 3809623930836664562}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-6894517809285801308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Voicelines/female-001_helloagain
+  m_EditorClassIdentifier: 
+  Path: event:/Voicelines/female-001_helloagain
+  Guid:
+    Data1: -887801965
+    Data2: 1122856075
+    Data3: -1508350802
+    Data4: 1605824731
+  Banks:
+  - {fileID: 3809623930836664562}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-6425423928354489264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/TestMusic
+  m_EditorClassIdentifier: 
+  Path: event:/TestMusic
+  Guid:
+    Data1: 574756800
+    Data2: 1144311751
+    Data3: -171322234
+    Data4: 811516067
+  Banks:
+  - {fileID: 3809623930836664562}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 48000
+--- !u!114 &-6300873265532349407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Voicelines/male-004_higigi
+  m_EditorClassIdentifier: 
+  Path: event:/Voicelines/male-004_higigi
+  Guid:
+    Data1: -1081582869
+    Data2: 1134636621
+    Data3: -740869209
+    Data4: -261255961
+  Banks:
+  - {fileID: 3809623930836664562}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-6165557551718093598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Voicelines/male-003_himaddy
+  m_EditorClassIdentifier: 
+  Path: event:/Voicelines/male-003_himaddy
+  Guid:
+    Data1: 1700784594
+    Data2: 1108505732
+    Data3: -29993026
+    Data4: -57453936
+  Banks:
+  - {fileID: 3809623930836664562}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-6069919786525486964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/menuMusic
+  m_EditorClassIdentifier: 
+  Path: event:/menuMusic
+  Guid:
+    Data1: -877091652
+    Data2: 1210220128
+    Data3: -84133965
+    Data4: -1807360727
+  Banks:
+  - {fileID: 3809623930836664562}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 18455
+--- !u!114 &-5859296173756589251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/failedHitPiano
+  m_EditorClassIdentifier: 
+  Path: event:/failedHitPiano
+  Guid:
+    Data1: 725899639
+    Data2: 1116657984
+    Data3: -1324730949
+    Data4: -1178023530
+  Banks:
+  - {fileID: 3809623930836664562}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4260002799369517554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: ../FMODStudio/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638685880603734919
+  FileSizes:
+  - Name: Desktop
+    Value: 850
+  Exists: 1
+--- !u!114 &-3811095030160434384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/menuMusic
+  m_EditorClassIdentifier: 
+  Path: event:/menuMusic
+  Guid:
+    Data1: -877091652
+    Data2: 1210220128
+    Data3: -84133965
+    Data4: -1807360727
+  Banks:
+  - {fileID: -3723229476501375249}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 18455
+--- !u!114 &-3723229476501375249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: ../FMODStudio/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 638685992504124088
+  FileSizes:
+  - Name: Desktop
+    Value: 8530656
+  Exists: 1
+--- !u!114 &-3425414708647578231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Voicelines/brain-001_thinking
+  m_EditorClassIdentifier: 
+  Path: event:/Voicelines/brain-001_thinking
+  Guid:
+    Data1: -1543747434
+    Data2: 1223710181
+    Data3: 1936281759
+    Data4: -1693845255
+  Banks:
+  - {fileID: 3809623930836664562}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-1660285034698264441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/gameMusic
+  m_EditorClassIdentifier: 
+  Path: event:/gameMusic
+  Guid:
+    Data1: 1424249009
+    Data2: 1126526177
+    Data3: 719588241
+    Data4: -1012285435
+  Banks:
+  - {fileID: -3723229476501375249}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 78498
+--- !u!114 &-780654978925523749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: ../FMODStudio/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638686511745638734
+  FileSizes:
+  - Name: Desktop
+    Value: 1616
+  Exists: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  EditorBanks:
+  - {fileID: -780654978925523749}
+  - {fileID: 3809623930836664562}
+  EditorEvents:
+  - {fileID: -6069919786525486964}
+  - {fileID: -6425423928354489264}
+  - {fileID: -8830399411812790807}
+  - {fileID: -7007362924701739446}
+  - {fileID: 4653969909635394616}
+  - {fileID: -7149610911304624540}
+  - {fileID: -5859296173756589251}
+  - {fileID: -7541276353725538653}
+  - {fileID: 4820979482797117456}
+  - {fileID: -6894517809285801308}
+  - {fileID: -8324805296527452992}
+  - {fileID: 1330109904593456665}
+  - {fileID: -6165557551718093598}
+  - {fileID: -6300873265532349407}
+  - {fileID: -3425414708647578231}
+  - {fileID: 2040686749415136034}
+  - {fileID: 2062431729718483803}
+  EditorParameters: []
+  MasterBanks:
+  - {fileID: 3809623930836664562}
+  StringsBanks:
+  - {fileID: -780654978925523749}
+  cacheTime: 638686511745638734
+  cacheVersion: 131621
+--- !u!114 &1330109904593456665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Voicelines/male-002_fuckwhosthis
+  m_EditorClassIdentifier: 
+  Path: event:/Voicelines/male-002_fuckwhosthis
+  Guid:
+    Data1: -1880278322
+    Data2: 1176884857
+    Data3: 1236890518
+    Data4: 2060057399
+  Banks:
+  - {fileID: 3809623930836664562}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &2040686749415136034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/cutsceneMusic
+  m_EditorClassIdentifier: 
+  Path: event:/cutsceneMusic
+  Guid:
+    Data1: -213897293
+    Data2: 1131946897
+    Data3: -101432682
+    Data4: -655995629
+  Banks:
+  - {fileID: 3809623930836664562}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 3200
+--- !u!114 &2062431729718483803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Voicelines/brain-002_ohh
+  m_EditorClassIdentifier: 
+  Path: event:/Voicelines/brain-002_ohh
+  Guid:
+    Data1: 1996493773
+    Data2: 1245096405
+    Data3: 492913335
+    Data4: -1454428582
+  Banks:
+  - {fileID: 3809623930836664562}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &3809623930836664562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: ../FMODStudio/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 638686511745576117
+  FileSizes:
+  - Name: Desktop
+    Value: 15539680
+  Exists: 1
+--- !u!114 &4653969909635394616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Voicelines/female-002_hihi
+  m_EditorClassIdentifier: 
+  Path: event:/Voicelines/female-002_hihi
+  Guid:
+    Data1: -1330518699
+    Data2: 1337060125
+    Data3: 2138437284
+    Data4: 1196252120
+  Banks:
+  - {fileID: 3809623930836664562}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &4820979482797117456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Voicelines/female-005_whoismaddy
+  m_EditorClassIdentifier: 
+  Path: event:/Voicelines/female-005_whoismaddy
+  Guid:
+    Data1: 500701322
+    Data2: 1290690070
+    Data3: -918916453
+    Data4: 964277342
+  Banks:
+  - {fileID: 3809623930836664562}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
