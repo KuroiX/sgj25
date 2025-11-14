@@ -4,6 +4,10 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    [Header("Assign in Editor")] 
+    [SerializeField] private ParryManager parryManager;
+    
+    [Header("Set in Editor")]
     [SerializeField] private float force;
     [SerializeField] private float acceleration;
     [SerializeField] private float moveSpeed;
@@ -37,12 +41,19 @@ public class Player : MonoBehaviour
 
     private void ParryOnperformed(InputAction.CallbackContext obj)
     {
-        Debug.Log("Parry");
+        ParryState parryState = parryManager.TriggerParry();
+        
+        Debug.Log(parryState);
+
+        if (parryState == ParryState.Perfect || parryState == ParryState.Early)
+        {
+            Jump();
+        }
     }
 
     private void JumpOnperformed(InputAction.CallbackContext obj)
     {
-        _rb.AddForce(Vector2.up * force,  ForceMode2D.Impulse);
+        Jump();
     }
 
     private void MoveOnperformed(InputAction.CallbackContext obj)
@@ -69,5 +80,11 @@ public class Player : MonoBehaviour
         float newSpeed = Mathf.Lerp(currentSpeed, targetSpeed, acceleration);
         
         _rb.linearVelocity = new Vector2(newSpeed, _rb.linearVelocity.y);
+    }
+
+    private void Jump()
+    {
+        _rb.linearVelocity = new Vector2(_rb.linearVelocity.y, 0);
+        _rb.AddForce(Vector2.up * force,  ForceMode2D.Impulse);
     }
 }
