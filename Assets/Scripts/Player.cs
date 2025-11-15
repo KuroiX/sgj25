@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,7 +6,8 @@ public class Player : MonoBehaviour
 {
     private static readonly int IsWalking = Animator.StringToHash("IsWalking");
     private static readonly int IsJumping = Animator.StringToHash("IsJumping");
-    private static readonly int IsKicking = Animator.StringToHash("IsKicking");
+    private static readonly int IsParryJumping = Animator.StringToHash("IsParryJumping");
+    private static readonly int Kick = Animator.StringToHash("Kick");
 
     [Header("Assign in Editor")] 
     [SerializeField] private ParryManager parryManager;
@@ -66,13 +65,21 @@ public class Player : MonoBehaviour
 
     private void ParryOnperformed(InputAction.CallbackContext obj)
     {
-        ParryState parryState = parryManager.TriggerParry();
-        
-        StopAllCoroutines();
-        animator.SetBool(IsKicking, true);
-        StartCoroutine(RevertColor());
+        animator.SetTrigger(Kick);
+        animator.SetBool(IsParryJumping, false);
 
-        if (parryState != ParryState.Perfect && parryState != ParryState.Early) return;
+        StopAllCoroutines();
+        StartCoroutine(KickRoutine());
+    }
+
+    private IEnumerator KickRoutine()
+    {
+        yield return new WaitForSeconds(0.1f);
+        
+        // ENUMERATOR
+        ParryState parryState = parryManager.TriggerParry();
+
+        if (parryState != ParryState.Perfect && parryState != ParryState.Early) yield break;
 
         DoParry();
     }
@@ -99,15 +106,8 @@ public class Player : MonoBehaviour
     {
         Jump();
         health.ChangeHealth(-10);
+        animator.SetBool(IsParryJumping, true);
     }
-
-    private IEnumerator RevertColor()
-    {
-        Debug.Log("hallooooo");
-        yield return new WaitForSeconds(0.7f);
-        animator.SetBool(IsKicking, false);
-    }
-    
     private void MoveOnperformed(InputAction.CallbackContext obj)
     {
         _movement = obj.ReadValue<float>();
@@ -163,6 +163,7 @@ public class Player : MonoBehaviour
         _isAllowedToJump = true;
         
         animator.SetBool(IsJumping, false);
+        animator.SetBool(IsParryJumping, false);
     }
     
     private bool CheckGrounded()
