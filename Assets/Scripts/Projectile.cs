@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -7,9 +6,14 @@ public class Projectile : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player")) return;
+        if (other.CompareTag("Despawner"))
+        {
+            Destroy(gameObject);
+        }
         
-        other.GetComponent<Health>().ChangeHealth(-10);
+        if (!other.CompareTag("Player")) return;
+
+        other.GetComponent<Health>().GetHit();
 
         Destroy(gameObject);
     }

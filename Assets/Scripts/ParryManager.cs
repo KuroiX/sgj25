@@ -38,4 +38,11 @@ public class ParryManager : MonoBehaviour
     {
         player.TriggerParry();
     }
+
+    public void DoParry()
+    {
+        outer.DoParry();
+        middle.DoParry();
+        inner.DoParry();
+    }
 }

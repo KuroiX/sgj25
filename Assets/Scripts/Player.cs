@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,7 +12,8 @@ public class Player : MonoBehaviour
 
     [Header("Assign in Editor")] 
     [SerializeField] private ParryManager parryManager;
-    [SerializeField] private Health health;
+    [SerializeField] private Health bossHealth;
+    [SerializeField] private Health playerHealth;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator animator;
     
@@ -56,6 +58,22 @@ public class Player : MonoBehaviour
         _characterInput.Player.Jump.performed += JumpOnperformed;
         _characterInput.Player.Parry.performed += ParryOnperformed;
         _characterInput.Player.ActivateAggro.performed += ActivateAggroOnperformed;
+        
+        playerHealth.OnHealthChange += PlayerHealthOnHealthChange;
+    }
+
+    private void PlayerHealthOnHealthChange(float currentHealth, float maxHealth)
+    {
+        if (_isInAggroMode && currentHealth <= 0)
+        {
+            _isInAggroMode = false;
+        }
+        
+        if (!_isInAggroMode && currentHealth > maxHealth)
+        {
+            _isInAggroMode = true;
+            playerHealth.SetAggroMode();
+        }
     }
 
     private void ActivateAggroOnperformed(InputAction.CallbackContext obj)
@@ -105,9 +123,15 @@ public class Player : MonoBehaviour
     private void DoParry()
     {
         Jump();
-        health.ChangeHealth(-10);
+        parryManager.DoParry();
+        bossHealth.HitParry();
         animator.SetBool(IsParryJumping, true);
+        
+        if (_isInAggroMode) return;
+        
+        playerHealth.HitParry();
     }
+    
     private void MoveOnperformed(InputAction.CallbackContext obj)
     {
         _movement = obj.ReadValue<float>();

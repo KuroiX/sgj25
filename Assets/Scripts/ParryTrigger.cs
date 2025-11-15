@@ -30,4 +30,14 @@ public class ParryTrigger: MonoBehaviour
         
         HasHit = false;
     }
+
+    public void DoParry()
+    {
+        for (int i = _enteredColliders.Count - 1; i >= 0; i--)
+        {
+            var col =  _enteredColliders[i];
+            _enteredColliders.Remove(col);
+            if (col.gameObject) Destroy(col.gameObject);
+        }
+    }
 }
