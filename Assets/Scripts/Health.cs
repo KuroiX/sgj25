@@ -68,6 +68,5 @@ public class Health : MonoBehaviour
     {
         _isInAggroMode = true;
         _saveDifference = _currentHealth - maxHealth;
-        Debug.Log(_saveDifference);
     }
 }

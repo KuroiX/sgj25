@@ -34,6 +34,6 @@ public class HealthBar : MonoBehaviour
             _startHealthSet = true;
         }
         
-        _slider.value = current / _startHealth;
+        if (_slider) _slider.value = current / _startHealth;
     }
 }

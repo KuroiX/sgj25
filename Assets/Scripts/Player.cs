@@ -25,7 +25,19 @@ public class Player : MonoBehaviour
     [SerializeField] private float xMargin;
     [SerializeField] private float yMargin;
     [SerializeField] private LayerMask groundLayerMask;
-    
+
+    public event Action<bool> AggroChanged;
+
+    public bool IsInAggroMode
+    {
+        get => _isInAggroMode;
+        set
+        {
+            _isInAggroMode = value;
+            AggroChanged?.Invoke(_isInAggroMode);
+        }
+    }
+
     private CharacterInput _characterInput;
     private Rigidbody2D _rb;
     private Collider2D _collider;
@@ -64,21 +76,21 @@ public class Player : MonoBehaviour
 
     private void PlayerHealthOnHealthChange(float currentHealth, float maxHealth)
     {
-        if (_isInAggroMode && currentHealth <= 0)
+        if (IsInAggroMode && currentHealth <= 0)
         {
-            _isInAggroMode = false;
+            IsInAggroMode = false;
         }
         
-        if (!_isInAggroMode && currentHealth > maxHealth)
+        if (!IsInAggroMode && currentHealth > maxHealth)
         {
-            _isInAggroMode = true;
+            IsInAggroMode = true;
             playerHealth.SetAggroMode();
         }
     }
 
     private void ActivateAggroOnperformed(InputAction.CallbackContext obj)
     {
-        _isInAggroMode = !_isInAggroMode;
+        IsInAggroMode = !IsInAggroMode;
     }
 
     private void ParryOnperformed(InputAction.CallbackContext obj)
@@ -122,7 +134,11 @@ public class Player : MonoBehaviour
 
     private void DoParry()
     {
-        Jump();
+        if (!_isInAggroMode)
+        {
+            Jump();
+        }
+        
         parryManager.DoParry();
         bossHealth.HitParry();
         animator.SetBool(IsParryJumping, true);
