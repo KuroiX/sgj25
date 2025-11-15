@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class BossHealthBar : MonoBehaviour
+public class HealthBar : MonoBehaviour
 {
     [SerializeField] private Health health;
 
