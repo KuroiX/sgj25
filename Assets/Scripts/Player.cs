@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     private static readonly int IsJumping = Animator.StringToHash("IsJumping");
     private static readonly int IsParryJumping = Animator.StringToHash("IsParryJumping");
     private static readonly int Kick = Animator.StringToHash("Kick");
+    private static readonly int IsAggro = Animator.StringToHash("IsAggro");
 
     [Header("Assign in Editor")] 
     [SerializeField] private ParryManager parryManager;
@@ -34,6 +35,8 @@ public class Player : MonoBehaviour
         set
         {
             _isInAggroMode = value;
+            animator.SetBool(IsAggro, _isInAggroMode);
+            //animator.SetTrigger(Kick);
             AggroChanged?.Invoke(_isInAggroMode);
         }
     }
@@ -79,11 +82,14 @@ public class Player : MonoBehaviour
         if (IsInAggroMode && currentHealth <= 0)
         {
             IsInAggroMode = false;
+            
+            spriteRenderer.color = Color.white;
         }
         
         if (!IsInAggroMode && currentHealth > maxHealth)
         {
             IsInAggroMode = true;
+            spriteRenderer.color = Color.red;
             playerHealth.SetAggroMode();
         }
     }
@@ -91,10 +97,21 @@ public class Player : MonoBehaviour
     private void ActivateAggroOnperformed(InputAction.CallbackContext obj)
     {
         IsInAggroMode = !IsInAggroMode;
+
+        if (IsInAggroMode)
+        {
+            spriteRenderer.color = Color.red;
+        }
+        else
+        {
+            spriteRenderer.color = Color.white;
+        }
     }
 
     private void ParryOnperformed(InputAction.CallbackContext obj)
     {
+        if (IsInAggroMode) return;
+        
         animator.SetTrigger(Kick);
         animator.SetBool(IsParryJumping, false);
 
@@ -134,7 +151,8 @@ public class Player : MonoBehaviour
 
     private void DoParry()
     {
-        if (!_isInAggroMode)
+        // TODO: aggro no jump?
+        if (!_isGrounded)
         {
             Jump();
         }
