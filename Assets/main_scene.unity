@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6077777
 Transform:
   m_ObjectHideFlags: 0
@@ -2008,7 +2008,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1316403418
 Transform:
   m_ObjectHideFlags: 0
@@ -2145,7 +2145,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1334628332
 Transform:
   m_ObjectHideFlags: 0
@@ -2275,7 +2275,7 @@ GameObject:
   - component: {fileID: 1360577611}
   - component: {fileID: 1360577610}
   - component: {fileID: 1360577609}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2934,9 +2934,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parryManager: {fileID: 1963766153}
+  boss: {fileID: 0}
   force: 12
   acceleration: 0.5
   moveSpeed: 5
+  xMargin: 0.7
+  yMargin: 0.05
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &1674889416
 GameObject:
   m_ObjectHideFlags: 0
