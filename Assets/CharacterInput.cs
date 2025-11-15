@@ -118,6 +118,15 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ActivateAggro"",
+                    ""type"": ""Button"",
+                    ""id"": ""19a7d282-2082-4dfc-b400-183529ab3e27"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -219,6 +228,28 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
                     ""action"": ""Parry"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""60b9f1ac-2db7-44a5-a8db-45d96e706e9e"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActivateAggro"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b337045b-8d4b-4e69-8205-475f49508270"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActivateAggro"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -230,6 +261,7 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Parry = m_Player.FindAction("Parry", throwIfNotFound: true);
+        m_Player_ActivateAggro = m_Player.FindAction("ActivateAggro", throwIfNotFound: true);
     }
 
     ~@CharacterInput()
@@ -313,6 +345,7 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Parry;
+    private readonly InputAction m_Player_ActivateAggro;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -336,6 +369,10 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Parry".
         /// </summary>
         public InputAction @Parry => m_Wrapper.m_Player_Parry;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ActivateAggro".
+        /// </summary>
+        public InputAction @ActivateAggro => m_Wrapper.m_Player_ActivateAggro;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -371,6 +408,9 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
             @Parry.started += instance.OnParry;
             @Parry.performed += instance.OnParry;
             @Parry.canceled += instance.OnParry;
+            @ActivateAggro.started += instance.OnActivateAggro;
+            @ActivateAggro.performed += instance.OnActivateAggro;
+            @ActivateAggro.canceled += instance.OnActivateAggro;
         }
 
         /// <summary>
@@ -391,6 +431,9 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
             @Parry.started -= instance.OnParry;
             @Parry.performed -= instance.OnParry;
             @Parry.canceled -= instance.OnParry;
+            @ActivateAggro.started -= instance.OnActivateAggro;
+            @ActivateAggro.performed -= instance.OnActivateAggro;
+            @ActivateAggro.canceled -= instance.OnActivateAggro;
         }
 
         /// <summary>
@@ -452,5 +495,12 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnParry(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ActivateAggro" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnActivateAggro(InputAction.CallbackContext context);
     }
 }

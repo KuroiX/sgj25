@@ -1,13 +1,15 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
     [Header("Assign in Editor")] 
     [SerializeField] private ParryManager parryManager;
-    [FormerlySerializedAs("boss")] [SerializeField] private Health health;
+    [SerializeField] private Health health;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    
     
     [Header("Set in Editor")]
     [SerializeField] private float force;
@@ -25,8 +27,9 @@ public class Player : MonoBehaviour
     private float _movement;
 
     private bool _isGrounded;
-
     private bool _isAllowedToJump;
+
+    private bool _isInAggroMode;
     
     
     private void Awake()
@@ -48,7 +51,12 @@ public class Player : MonoBehaviour
         _characterInput.Player.Move.canceled += MoveOnperformed;
         _characterInput.Player.Jump.performed += JumpOnperformed;
         _characterInput.Player.Parry.performed += ParryOnperformed;
-        
+        _characterInput.Player.ActivateAggro.performed += ActivateAggroOnperformed;
+    }
+
+    private void ActivateAggroOnperformed(InputAction.CallbackContext obj)
+    {
+        _isInAggroMode = !_isInAggroMode;
     }
 
     private void ParryOnperformed(InputAction.CallbackContext obj)
@@ -58,47 +66,76 @@ public class Player : MonoBehaviour
         Debug.Log(parryState);
 
         if (parryState != ParryState.Perfect && parryState != ParryState.Early) return;
-        
-        Jump();
-        health.ChangeHealth(-10);
+
+        DoParry();
     }
 
     private void JumpOnperformed(InputAction.CallbackContext obj)
     {
-        if (!_isAllowedToJump) return;
+        if (!_isAllowedToJump || !_isGrounded) return;
         
         Jump();
         _isAllowedToJump = false;
+
+        StopAllCoroutines();
+        spriteRenderer.color = Color.blue;
+        StartCoroutine(RevertColor());
     }
 
+    public void TriggerParry()
+    {
+        if (!_isInAggroMode) return;
+        DoParry();
+    }
+
+    private void DoParry()
+    {
+        Jump();
+        health.ChangeHealth(-10);
+        
+        StopAllCoroutines();
+        spriteRenderer.color = Color.yellow;
+        StartCoroutine(RevertColor());
+    }
+
+    private IEnumerator RevertColor()
+    {
+        yield return new WaitForSeconds(0.5f);
+        spriteRenderer.color = Color.white;
+    }
+    
     private void MoveOnperformed(InputAction.CallbackContext obj)
     {
         _movement = obj.ReadValue<float>();
     }
-
+    
     private void OnDisable()
     {
         _characterInput.Disable();
         
         _characterInput.Player.Move.performed -= MoveOnperformed;
+        
+        _characterInput.Player.Move.canceled -= MoveOnperformed;
         _characterInput.Player.Jump.performed -= JumpOnperformed;
         _characterInput.Player.Parry.performed -= ParryOnperformed;
+        
+        _characterInput.Player.ActivateAggro.performed -= ActivateAggroOnperformed;
     }
-
+    
     private void FixedUpdate()
     {
         bool wasGrounded = _isGrounded;
         _isGrounded = CheckGrounded();
-
+        
         if (!wasGrounded && _isGrounded)
         {
             _isAllowedToJump = true;
         }
-
+        
         DrawBoxDebug();
         
         Vector2 velocity = _rb.linearVelocity;
-
+        
         float currentSpeed = velocity.x;
         float targetSpeed = _movement * moveSpeed;
         

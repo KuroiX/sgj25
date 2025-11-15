@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class ParryManager : MonoBehaviour
 {
     [SerializeField] private ParryTrigger inner;
     [SerializeField] private ParryTrigger middle;
     [SerializeField] private ParryTrigger outer;
+    [SerializeField] private Player player;
+    
 
     public ParryState TriggerParry()
     {
@@ -24,5 +27,15 @@ public class ParryManager : MonoBehaviour
         }
 
         return ParryState.Miss;
+    }
+
+    private void OnEnable()
+    {
+        middle.OnEntered += MiddleOnOnEntered;
+    }
+
+    private void MiddleOnOnEntered(bool obj)
+    {
+        player.TriggerParry();
     }
 }
