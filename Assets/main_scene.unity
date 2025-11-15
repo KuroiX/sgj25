@@ -480,7 +480,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf77fdc9d65ac3245a92f6ae4bb784f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 0}
 --- !u!1 &350727249
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,7 +850,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 50
   setHealthOnStart: 1
-  parryRage: 10
+  parryRage: -10
   hitRage: 0
   aggroSpeed: 0
 --- !u!212 &631041033
