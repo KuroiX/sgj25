@@ -1,15 +1,20 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    private static readonly int IsWalking = Animator.StringToHash("IsWalking");
+    private static readonly int IsJumping = Animator.StringToHash("IsJumping");
+    private static readonly int IsKicking = Animator.StringToHash("IsKicking");
+
     [Header("Assign in Editor")] 
     [SerializeField] private ParryManager parryManager;
     [SerializeField] private Health health;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    
+    [SerializeField] private Animator animator;
     
     [Header("Set in Editor")]
     [SerializeField] private float force;
@@ -63,7 +68,9 @@ public class Player : MonoBehaviour
     {
         ParryState parryState = parryManager.TriggerParry();
         
-        Debug.Log(parryState);
+        StopAllCoroutines();
+        animator.SetBool(IsKicking, true);
+        StartCoroutine(RevertColor());
 
         if (parryState != ParryState.Perfect && parryState != ParryState.Early) return;
 
@@ -77,9 +84,9 @@ public class Player : MonoBehaviour
         Jump();
         _isAllowedToJump = false;
 
-        StopAllCoroutines();
-        spriteRenderer.color = Color.blue;
-        StartCoroutine(RevertColor());
+        //StopAllCoroutines();
+        //spriteRenderer.color = Color.blue;
+        //StartCoroutine(RevertColor());
     }
 
     public void TriggerParry()
@@ -92,16 +99,13 @@ public class Player : MonoBehaviour
     {
         Jump();
         health.ChangeHealth(-10);
-        
-        StopAllCoroutines();
-        spriteRenderer.color = Color.yellow;
-        StartCoroutine(RevertColor());
     }
 
     private IEnumerator RevertColor()
     {
-        yield return new WaitForSeconds(0.5f);
-        spriteRenderer.color = Color.white;
+        Debug.Log("hallooooo");
+        yield return new WaitForSeconds(0.7f);
+        animator.SetBool(IsKicking, false);
     }
     
     private void MoveOnperformed(InputAction.CallbackContext obj)
@@ -129,7 +133,7 @@ public class Player : MonoBehaviour
         
         if (!wasGrounded && _isGrounded)
         {
-            _isAllowedToJump = true;
+            Land();
         }
         
         DrawBoxDebug();
@@ -142,12 +146,23 @@ public class Player : MonoBehaviour
         float newSpeed = Mathf.Lerp(currentSpeed, targetSpeed, acceleration);
         
         _rb.linearVelocity = new Vector2(newSpeed, _rb.linearVelocity.y);
+
+        animator.SetBool(IsWalking, _isGrounded && _movement != 0);
     }
 
     private void Jump()
     {
         _rb.linearVelocity = new Vector2(_rb.linearVelocity.y, 0);
         _rb.AddForce(Vector2.up * force,  ForceMode2D.Impulse);
+        
+        animator.SetBool(IsJumping, true);
+    }
+
+    private void Land()
+    {
+        _isAllowedToJump = true;
+        
+        animator.SetBool(IsJumping, false);
     }
     
     private bool CheckGrounded()
