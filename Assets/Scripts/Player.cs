@@ -1,12 +1,13 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
     [Header("Assign in Editor")] 
     [SerializeField] private ParryManager parryManager;
-    [SerializeField] private Boss boss;
+    [FormerlySerializedAs("boss")] [SerializeField] private Health health;
     
     [Header("Set in Editor")]
     [SerializeField] private float force;
@@ -59,7 +60,7 @@ public class Player : MonoBehaviour
         if (parryState != ParryState.Perfect && parryState != ParryState.Early) return;
         
         Jump();
-        boss.Parry();
+        health.ChangeHealth(-10);
     }
 
     private void JumpOnperformed(InputAction.CallbackContext obj)

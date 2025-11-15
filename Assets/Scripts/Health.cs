@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class Boss : MonoBehaviour
+public class Health : MonoBehaviour
 {
     public event Action<float, float> OnHealthChange;
     
@@ -26,8 +26,8 @@ public class Boss : MonoBehaviour
         CurrentHealth =  maxHealth;
     }
 
-    public void Parry()
+    public void ChangeHealth(float amount)
     {
-        CurrentHealth -= 10;
+        CurrentHealth += amount;
     }
 }

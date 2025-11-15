@@ -8,6 +8,8 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
+        
+        other.GetComponent<Health>().ChangeHealth(-10);
 
         Destroy(gameObject);
     }
