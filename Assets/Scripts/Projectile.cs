@@ -1,11 +1,25 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float speed;
+    public float amplitude = 1f;        // size of sine wave
+    public float frequency = 5f;        // speed of sine wave wobble
+
+    [SerializeField] private Sprite flippedSprite;
+    
 
     private bool _isFlipped;
+    private SpriteRenderer _spriteRenderer;
+    
+    private float _timeAlive = 0f;
+
+    private void Start()
+    {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -23,9 +37,13 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
+        _timeAlive += Time.deltaTime;
+        
         var direction = _isFlipped ? -2f : 1f;
         
-        transform.Translate(Vector3.left * (Time.deltaTime * speed * direction));
+        float sine = Mathf.Sin(_timeAlive * frequency) * amplitude;
+        
+        transform.Translate(Vector3.left * (Time.deltaTime * speed * direction) + Vector3.up * sine);
     }
 
     public void HitBoss()
@@ -33,6 +51,7 @@ public class Projectile : MonoBehaviour
         if (_isFlipped) return;
         
         _isFlipped = true;
+        _spriteRenderer.sprite = flippedSprite;
 
         StartCoroutine(WaitThenDie());
     }

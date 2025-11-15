@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     
     [Header("Set in Editor")]
     [SerializeField] private float force;
+    [SerializeField] private float forceMultiplier;
     [SerializeField] private float acceleration;
     [SerializeField] private float moveSpeed;
 
@@ -154,12 +155,12 @@ public class Player : MonoBehaviour
         // TODO: aggro no jump?
         if (!_isGrounded)
         {
-            Jump();
+            ParryJump();
+            animator.SetBool(IsParryJumping, true);
         }
         
         parryManager.DoParry();
         bossHealth.HitParry();
-        animator.SetBool(IsParryJumping, true);
         
         if (_isInAggroMode) return;
         
@@ -210,10 +211,18 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        _rb.linearVelocity = new Vector2(_rb.linearVelocity.y, 0);
+        _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, 0);
         _rb.AddForce(Vector2.up * force,  ForceMode2D.Impulse);
         
         animator.SetBool(IsJumping, true);
+    }
+
+    private void ParryJump()
+    {
+        _rb.linearVelocity = new Vector2(_rb.linearVelocity.x - force * forceMultiplier, 0);
+        _rb.AddForce(Vector2.up * (force * 0.75f),  ForceMode2D.Impulse);
+        
+        animator.SetBool(IsParryJumping, true);
     }
 
     private void Land()
