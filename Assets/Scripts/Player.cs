@@ -83,29 +83,76 @@ public class Player : MonoBehaviour
         if (IsInAggroMode && currentHealth <= 0)
         {
             IsInAggroMode = false;
-            
-            spriteRenderer.color = Color.white;
+            StopCoroutines();
+            StartCoroutine(InvincibleRoutine());
         }
         
         if (!IsInAggroMode && currentHealth > maxHealth)
         {
             IsInAggroMode = true;
-            spriteRenderer.color = Color.red;
             playerHealth.SetAggroMode();
         }
+    }
+
+    private void StopCoroutines()
+    {
+        IsInvincible = false;
+        spriteRenderer.enabled = true;
+        StopAllCoroutines();
+    }
+
+    public bool IsInvincible { get; private set; }
+
+    private IEnumerator InvincibleRoutine()
+    {
+        IsInvincible = true;
+
+        spriteRenderer.enabled = false;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.enabled = true;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.enabled = false;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.enabled = true;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.enabled = false;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.enabled = true;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.enabled = false;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.enabled = true;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.enabled = false;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.enabled = true;
+        
+        IsInvincible = false;
+    }
+
+    public void Stun()
+    {
+        StopCoroutines();
+        StartCoroutine(StunRoutine());
+    }
+
+    private IEnumerator StunRoutine()
+    {
+        _characterInput.Player.Disable();
+        // TODO: sound
+        _rb.linearVelocity = Vector2.zero;
+        yield return new WaitForSeconds(0.1f);
+        _characterInput.Player.Enable();
     }
 
     private void ActivateAggroOnperformed(InputAction.CallbackContext obj)
     {
         IsInAggroMode = !IsInAggroMode;
 
-        if (IsInAggroMode)
+        if (!IsInAggroMode)
         {
-            spriteRenderer.color = Color.red;
-        }
-        else
-        {
-            spriteRenderer.color = Color.white;
+            StopCoroutines();
+            StartCoroutine(InvincibleRoutine());
         }
     }
 
@@ -116,7 +163,7 @@ public class Player : MonoBehaviour
         animator.SetTrigger(Kick);
         animator.SetBool(IsParryJumping, false);
 
-        StopAllCoroutines();
+        StopCoroutines();
         StartCoroutine(KickRoutine());
     }
 
@@ -138,10 +185,6 @@ public class Player : MonoBehaviour
         
         Jump();
         _isAllowedToJump = false;
-
-        //StopAllCoroutines();
-        //spriteRenderer.color = Color.blue;
-        //StartCoroutine(RevertColor());
     }
 
     public void TriggerParry()
@@ -153,7 +196,7 @@ public class Player : MonoBehaviour
     private void DoParry()
     {
         // TODO: aggro no jump?
-        if (!_isGrounded)
+        if (!_isInAggroMode && !_isGrounded)
         {
             ParryJump();
             animator.SetBool(IsParryJumping, true);

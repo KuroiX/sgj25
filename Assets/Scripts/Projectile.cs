@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -12,10 +13,16 @@ public class Projectile : MonoBehaviour
 
     [SerializeField] private bool verticalMovement;
 
+    [SerializeField] private Color playerColor;
+
     private bool _isFlipped;
     private SpriteRenderer _spriteRenderer;
     
     private float _timeAlive = 0f;
+
+    [SerializeField] private ParticleSystem hitEffectInstance;
+    [SerializeField] private float shakeStrength = 0.1f;
+    
 
     private void Start()
     {
@@ -26,11 +33,12 @@ public class Projectile : MonoBehaviour
     {
         if (_isFlipped)
         {
-            Debug.Log(other.name);
             if (other.CompareTag("Boss"))
             {
-                other.GetComponent<Health>().GetHit();
-                Destroy(gameObject);
+                other.GetComponent<Health>().HitParry();
+                other.transform.DOShakePosition(0.5f, shakeStrength);
+                hitEffectInstance.startColor = playerColor;
+                StartCoroutine(DestroyRoutine());
             }
         }
         else
@@ -41,11 +49,24 @@ public class Projectile : MonoBehaviour
             }
 
             if (!other.CompareTag("Player")) return;
+            
+            var player = other.GetComponent<Player>();
+            
+            if (player.IsInvincible) return;
 
+            player.Stun();
             other.GetComponent<Health>().GetHit();
 
-            Destroy(gameObject);
+            StartCoroutine(DestroyRoutine());
         }
+    }
+
+    private IEnumerator DestroyRoutine()
+    {
+        hitEffectInstance.gameObject.SetActive(true);
+        _spriteRenderer.enabled = false;
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
     }
 
     private void Update()
@@ -73,13 +94,5 @@ public class Projectile : MonoBehaviour
         
         _isFlipped = true;
         _spriteRenderer.sprite = flippedSprite;
-
-        //StartCoroutine(WaitThenDie());
-    }
-
-    private IEnumerator WaitThenDie()
-    {
-        yield return new WaitForSeconds(1.5f);
-        Destroy(gameObject);
     }
 }
