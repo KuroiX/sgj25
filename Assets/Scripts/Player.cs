@@ -83,14 +83,11 @@ public class Player : MonoBehaviour
         if (IsInAggroMode && currentHealth <= 0)
         {
             IsInAggroMode = false;
-            
-            spriteRenderer.color = Color.white;
         }
         
         if (!IsInAggroMode && currentHealth > maxHealth)
         {
             IsInAggroMode = true;
-            spriteRenderer.color = Color.red;
             playerHealth.SetAggroMode();
         }
     }
@@ -98,15 +95,6 @@ public class Player : MonoBehaviour
     private void ActivateAggroOnperformed(InputAction.CallbackContext obj)
     {
         IsInAggroMode = !IsInAggroMode;
-
-        if (IsInAggroMode)
-        {
-            spriteRenderer.color = Color.red;
-        }
-        else
-        {
-            spriteRenderer.color = Color.white;
-        }
     }
 
     private void ParryOnperformed(InputAction.CallbackContext obj)
