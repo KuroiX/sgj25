@@ -49,7 +49,12 @@ public class Projectile : MonoBehaviour
             }
 
             if (!other.CompareTag("Player")) return;
+            
+            var player = other.GetComponent<Player>();
+            
+            if (player.IsInvincible) return;
 
+            player.Stun();
             other.GetComponent<Health>().GetHit();
 
             StartCoroutine(DestroyRoutine());
@@ -89,13 +94,5 @@ public class Projectile : MonoBehaviour
         
         _isFlipped = true;
         _spriteRenderer.sprite = flippedSprite;
-
-        //StartCoroutine(WaitThenDie());
-    }
-
-    private IEnumerator WaitThenDie()
-    {
-        yield return new WaitForSeconds(1.5f);
-        Destroy(gameObject);
     }
 }
