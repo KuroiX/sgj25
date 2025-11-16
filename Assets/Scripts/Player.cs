@@ -160,7 +160,7 @@ public class Player : MonoBehaviour
         }
         
         parryManager.DoParry();
-        bossHealth.HitParry();
+        //bossHealth.HitParry();
         
         if (_isInAggroMode) return;
         
@@ -219,8 +219,8 @@ public class Player : MonoBehaviour
 
     private void ParryJump()
     {
-        _rb.linearVelocity = new Vector2(_rb.linearVelocity.x - force * forceMultiplier, 0);
-        _rb.AddForce(Vector2.up * (force * 0.75f),  ForceMode2D.Impulse);
+        _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, 0);
+        _rb.AddForce((Vector2.up*2 + Vector2.left).normalized * force,  ForceMode2D.Impulse);
         
         animator.SetBool(IsParryJumping, true);
     }

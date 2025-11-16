@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 402780618445175641}
   - component: {fileID: 1188343188973222271}
   m_Layer: 0
-  m_Name: Projectile
+  m_Name: Projectile 1
   m_TagString: Parry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -7900581923505515364, guid: 9331d2ac7a0a2f14a9c8c9d94649c764, type: 3}
+  m_Sprite: {fileID: 45285739260254523, guid: af989aa615f7b154eb4238be5934073d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -105,7 +105,8 @@ MonoBehaviour:
   speed: 3
   amplitude: 0.002
   frequency: 2
-  flippedSprite: {fileID: -5238439006878357526, guid: d073759f2e4e6e34bbac9d07b4b430f8, type: 3}
+  flippedSprite: {fileID: 8629143327370313252, guid: c6b3b9c442608ec45933e9482a92e9cc, type: 3}
+  verticalMovement: 1
 --- !u!50 &402780618445175641
 Rigidbody2D:
   serializedVersion: 5
