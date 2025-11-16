@@ -10,17 +10,26 @@ public class LoadNextSceneOnKey : MonoBehaviour
     private KeyControl[] _keyControls;
 
     private SceneLoader _sceneLoader;
-    
-    private void Awake()
+
+    private bool _isLoading;
+
+    private void Start()
     {
         _sceneLoader = FindObjectOfType<SceneLoader>().GetComponent<SceneLoader>();
-        _keyControls = Keyboard.current.allKeys.Where(key => keys.Contains(key.keyCode)).ToArray();
+        //_keyControls = Keyboard.current.allKeys.Where(key => keys.Contains(key.keyCode)).ToArray();
     }
 
     private void Update()
     {
-        if (!_keyControls.Any(key => key.wasReleasedThisFrame)) return;
+        if (_isLoading) return;
+
+        if (!Keyboard.current.anyKey.wasPressedThisFrame &&
+            !(Gamepad.current is not null &&
+              (Gamepad.current.buttonSouth.wasPressedThisFrame || Gamepad.current.buttonWest.wasPressedThisFrame ||
+               Gamepad.current.buttonEast.wasPressedThisFrame ||
+               Gamepad.current.startButton.wasPressedThisFrame))) return;
 
         _sceneLoader.LoadNextScene();
+        _isLoading = true;
     }
 }

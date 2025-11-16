@@ -84,6 +84,18 @@ public class AudioManager : MonoBehaviour
         //Debug.Log("OnSceneLoaded");
         var container = FindObjectOfType<AudioContainer>();
 
+        if (scene.buildIndex == 0)
+        {
+            // reset audio 
+            _audioSources[2].volume = 0f;
+            _audioSources[2].clip = environmentClips[0];
+            FadeToClip(null);
+        }
+        else
+        {
+            _audioSources[2].volume = 1f;
+        }
+
         if (!container) return;
 
         if (container.BackgroundMusicClip == _audioSources[0].clip) return;

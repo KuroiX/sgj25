@@ -9,10 +9,12 @@ public class ParryTrigger: MonoBehaviour
     public event Action<bool> OnEntered;
 
     public bool HasHit { get; private set; }
+
+    [SerializeField] private Player player;
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Parry")) return;
+        if (!other.CompareTag("Parry") && (!other.CompareTag("SecondParry") || !player.IsInAggroMode)) return;
         
         OnEntered?.Invoke(true);
         
@@ -22,9 +24,9 @@ public class ParryTrigger: MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (!other.CompareTag("Parry")) return;
-
-        _enteredColliders.Remove(other);
+        if (!other.CompareTag("Parry") && (!other.CompareTag("SecondParry"))) return;
+        
+        if (_enteredColliders.Contains(other)) _enteredColliders.Remove(other);
         
         if (_enteredColliders.Count != 0) return;
         
@@ -35,7 +37,7 @@ public class ParryTrigger: MonoBehaviour
     {
         for (int i = _enteredColliders.Count - 1; i >= 0; i--)
         {
-            var col =  _enteredColliders[i];
+            var col = _enteredColliders[i];
             col.GetComponent<Projectile>().HitBoss();
             //_enteredColliders.Remove(col);
             //if (col.gameObject) Destroy(col.gameObject);
