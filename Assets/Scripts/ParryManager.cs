@@ -34,6 +34,11 @@ public class ParryManager : MonoBehaviour
         middle.OnEntered += MiddleOnOnEntered;
     }
 
+    private void OnDisable()
+    {
+        middle.OnEntered -= MiddleOnOnEntered;
+    }
+
     private void MiddleOnOnEntered(bool obj)
     {
         player.TriggerParry();

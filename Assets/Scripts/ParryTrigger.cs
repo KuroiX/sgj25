@@ -36,8 +36,9 @@ public class ParryTrigger: MonoBehaviour
         for (int i = _enteredColliders.Count - 1; i >= 0; i--)
         {
             var col =  _enteredColliders[i];
-            _enteredColliders.Remove(col);
-            if (col.gameObject) Destroy(col.gameObject);
+            col.GetComponent<Projectile>().HitBoss();
+            //_enteredColliders.Remove(col);
+            //if (col.gameObject) Destroy(col.gameObject);
         }
     }
 }

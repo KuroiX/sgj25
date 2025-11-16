@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     private static readonly int IsJumping = Animator.StringToHash("IsJumping");
     private static readonly int IsParryJumping = Animator.StringToHash("IsParryJumping");
     private static readonly int Kick = Animator.StringToHash("Kick");
+    private static readonly int IsAggro = Animator.StringToHash("IsAggro");
 
     [Header("Assign in Editor")] 
     [SerializeField] private ParryManager parryManager;
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour
     
     [Header("Set in Editor")]
     [SerializeField] private float force;
+    [SerializeField] private float forceMultiplier;
     [SerializeField] private float acceleration;
     [SerializeField] private float moveSpeed;
 
@@ -34,6 +36,8 @@ public class Player : MonoBehaviour
         set
         {
             _isInAggroMode = value;
+            animator.SetBool(IsAggro, _isInAggroMode);
+            //animator.SetTrigger(Kick);
             AggroChanged?.Invoke(_isInAggroMode);
         }
     }
@@ -79,6 +83,8 @@ public class Player : MonoBehaviour
         if (IsInAggroMode && currentHealth <= 0)
         {
             IsInAggroMode = false;
+            StopCoroutines();
+            StartCoroutine(InvincibleRoutine());
         }
         
         if (!IsInAggroMode && currentHealth > maxHealth)
@@ -88,17 +94,76 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void StopCoroutines()
+    {
+        IsInvincible = false;
+        spriteRenderer.enabled = true;
+        StopAllCoroutines();
+    }
+
+    public bool IsInvincible { get; private set; }
+
+    private IEnumerator InvincibleRoutine()
+    {
+        IsInvincible = true;
+
+        spriteRenderer.enabled = false;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.enabled = true;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.enabled = false;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.enabled = true;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.enabled = false;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.enabled = true;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.enabled = false;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.enabled = true;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.enabled = false;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.enabled = true;
+        
+        IsInvincible = false;
+    }
+
+    public void Stun()
+    {
+        StopCoroutines();
+        StartCoroutine(StunRoutine());
+    }
+
+    private IEnumerator StunRoutine()
+    {
+        _characterInput.Player.Disable();
+        // TODO: sound
+        _rb.linearVelocity = Vector2.zero;
+        yield return new WaitForSeconds(0.1f);
+        _characterInput.Player.Enable();
+    }
+
     private void ActivateAggroOnperformed(InputAction.CallbackContext obj)
     {
         IsInAggroMode = !IsInAggroMode;
+
+        if (!IsInAggroMode)
+        {
+            StopCoroutines();
+            StartCoroutine(InvincibleRoutine());
+        }
     }
 
     private void ParryOnperformed(InputAction.CallbackContext obj)
     {
+        if (IsInAggroMode) return;
+        
         animator.SetTrigger(Kick);
         animator.SetBool(IsParryJumping, false);
 
-        StopAllCoroutines();
+        StopCoroutines();
         StartCoroutine(KickRoutine());
     }
 
@@ -120,10 +185,6 @@ public class Player : MonoBehaviour
         
         Jump();
         _isAllowedToJump = false;
-
-        //StopAllCoroutines();
-        //spriteRenderer.color = Color.blue;
-        //StartCoroutine(RevertColor());
     }
 
     public void TriggerParry()
@@ -134,14 +195,15 @@ public class Player : MonoBehaviour
 
     private void DoParry()
     {
-        if (!_isInAggroMode)
+        // TODO: aggro no jump?
+        if (!_isInAggroMode && !_isGrounded)
         {
-            Jump();
+            ParryJump();
+            animator.SetBool(IsParryJumping, true);
         }
         
         parryManager.DoParry();
-        bossHealth.HitParry();
-        animator.SetBool(IsParryJumping, true);
+        //bossHealth.HitParry();
         
         if (_isInAggroMode) return;
         
@@ -192,10 +254,18 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        _rb.linearVelocity = new Vector2(_rb.linearVelocity.y, 0);
+        _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, 0);
         _rb.AddForce(Vector2.up * force,  ForceMode2D.Impulse);
         
         animator.SetBool(IsJumping, true);
+    }
+
+    private void ParryJump()
+    {
+        _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, 0);
+        _rb.AddForce((Vector2.up*2 + Vector2.left).normalized * force,  ForceMode2D.Impulse);
+        
+        animator.SetBool(IsParryJumping, true);
     }
 
     private void Land()

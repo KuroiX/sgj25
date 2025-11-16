@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 402780618445175641}
   - component: {fileID: 1188343188973222271}
   m_Layer: 0
-  m_Name: Projectile
+  m_Name: Projectile 1
   m_TagString: Parry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 9032536409921268998}
+  - {fileID: 1261122831866416791}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4536577935428883053
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -7900581923505515364, guid: 9331d2ac7a0a2f14a9c8c9d94649c764, type: 3}
+  m_Sprite: {fileID: 45285739260254523, guid: af989aa615f7b154eb4238be5934073d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -106,10 +106,10 @@ MonoBehaviour:
   speed: 3
   amplitude: 0.002
   frequency: 2
-  flippedSprite: {fileID: -5238439006878357526, guid: d073759f2e4e6e34bbac9d07b4b430f8, type: 3}
-  verticalMovement: 0
+  flippedSprite: {fileID: 8629143327370313252, guid: c6b3b9c442608ec45933e9482a92e9cc, type: 3}
+  verticalMovement: 1
   playerColor: {r: 0.60784316, g: 0.41176474, b: 0.91372555, a: 1}
-  hitEffectInstance: {fileID: 7562635566769717921}
+  hitEffectInstance: {fileID: 299925263777571120}
 --- !u!50 &402780618445175641
 Rigidbody2D:
   serializedVersion: 5
@@ -172,9 +172,9 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 0.3}
-  m_Direction: 1
---- !u!1001 &1131019873695828149
+  m_Size: {x: 0.3, y: 0.5}
+  m_Direction: 0
+--- !u!1001 &7163076498233486116
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -235,13 +235,13 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 905881e2d66e94bdfa1e72dea146213a, type: 3}
---- !u!198 &7562635566769717921 stripped
+--- !u!198 &299925263777571120 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 7440457237078166036, guid: 905881e2d66e94bdfa1e72dea146213a, type: 3}
-  m_PrefabInstance: {fileID: 1131019873695828149}
+  m_PrefabInstance: {fileID: 7163076498233486116}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &9032536409921268998 stripped
+--- !u!4 &1261122831866416791 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8279925738261423539, guid: 905881e2d66e94bdfa1e72dea146213a, type: 3}
-  m_PrefabInstance: {fileID: 1131019873695828149}
+  m_PrefabInstance: {fileID: 7163076498233486116}
   m_PrefabAsset: {fileID: 0}

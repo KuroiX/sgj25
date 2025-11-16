@@ -1,4 +1,5 @@
 ﻿using System;
+using DG.Tweening;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -11,6 +12,10 @@ public class Health : MonoBehaviour
     [SerializeField] private float parryRage;
     [SerializeField] private float hitRage;
     [SerializeField] private float aggroSpeed;
+    
+    [SerializeField] private Transform shakeCamera;
+    [SerializeField] private float shakeStrength = 1f;
+    
     public float MaxHealth => maxHealth;
 
     public float CurrentHealth
@@ -46,6 +51,8 @@ public class Health : MonoBehaviour
     public void GetHit()
     {
         ChangeHealth(hitRage);
+
+        shakeCamera.transform.DOShakePosition(0.5f, shakeStrength);
     }
 
     private void Update()
