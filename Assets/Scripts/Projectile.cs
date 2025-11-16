@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
@@ -25,12 +26,39 @@ public class Projectile : MonoBehaviour
 
     [SerializeField] private AudioClip[] bossHitClips;
     [SerializeField] private AudioClip[] reverseClips;
-    
+
+    private Player _player;
+
+    private Sprite _sprite;
     
 
     private void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _sprite =  _spriteRenderer.sprite;
+        _player = FindFirstObjectByType<Player>();
+        
+        _player.AggroChanged += PlayerOnAggroChanged;
+        PlayerOnAggroChanged(_player.IsInAggroMode);
+    }
+
+    private void PlayerOnAggroChanged(bool obj)
+    {
+        if (gameObject.CompareTag("Parry")) return;
+        
+        if (obj)
+        {
+            _spriteRenderer.sprite = flippedSprite;
+        }
+        else
+        {
+            _spriteRenderer.sprite = _sprite;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        _player.AggroChanged -= PlayerOnAggroChanged;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
