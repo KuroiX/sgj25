@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1188343188973222271}
   m_Layer: 0
   m_Name: Projectile 1
-  m_TagString: Parry
+  m_TagString: SecondParry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,6 +110,19 @@ MonoBehaviour:
   verticalMovement: 1
   playerColor: {r: 0.60784316, g: 0.41176474, b: 0.91372555, a: 1}
   hitEffectInstance: {fileID: 299925263777571120}
+  shakeStrength: 0.1
+  bossHitClips:
+  - {fileID: 8300000, guid: 2d8389751cbc446c882d23631656886b, type: 3}
+  - {fileID: 8300000, guid: f0658ad748beb4d3e850771521bc04cd, type: 3}
+  - {fileID: 8300000, guid: af0c55b1252b546cdabbb74ccfe1c2f1, type: 3}
+  - {fileID: 8300000, guid: 98a76de875f0f44688ee427caccd8408, type: 3}
+  - {fileID: 8300000, guid: 24804a8a8b1df48bca25023d867b54f6, type: 3}
+  reverseClips:
+  - {fileID: 8300000, guid: 4c320f1b0abfc4d788f8059a96ade5f8, type: 3}
+  - {fileID: 8300000, guid: 32f451d1f2b8841089363664984709ef, type: 3}
+  - {fileID: 8300000, guid: 61601fdddfe8a4e36974496ef33d4e70, type: 3}
+  - {fileID: 8300000, guid: 774ef4dd4a35d4eda83a812816c42f45, type: 3}
+  - {fileID: 8300000, guid: d40721c32fc864320ad39042582ed86e, type: 3}
 --- !u!50 &402780618445175641
 Rigidbody2D:
   serializedVersion: 5

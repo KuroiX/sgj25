@@ -7,6 +7,7 @@ TagManager:
   - Parry
   - Despawner
   - Boss
+  - SecondParry
   layers:
   - Default
   - TransparentFX

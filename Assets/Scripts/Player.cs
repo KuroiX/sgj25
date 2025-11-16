@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 public class Player : MonoBehaviour
 {
@@ -76,6 +77,27 @@ public class Player : MonoBehaviour
         _characterInput.Player.ActivateAggro.performed += ActivateAggroOnperformed;
         
         playerHealth.OnHealthChange += PlayerHealthOnHealthChange;
+        
+        AggroChanged += PlaySoundsOnAggro;
+    }
+
+    [SerializeField] private AudioClip[] aggroClips;
+    [SerializeField] private AudioClip aggroMusic;
+    
+
+    private void PlaySoundsOnAggro(bool obj)
+    {
+        if (obj)
+        {
+            //AudioManager.Instance.PlaySoundEffect(aggroClips[Random.Range(0, aggroClips.Length)]);
+            //AudioManager.Instance.PlayEnvironmentAt(1);
+            AudioManager.Instance.FadeToClipAt(1);
+        }
+        else
+        {
+            //AudioManager.Instance.PlayEnvironmentAt(0);
+            AudioManager.Instance.FadeToClipAt(0);
+        }
     }
 
     private void PlayerHealthOnHealthChange(float currentHealth, float maxHealth)
@@ -136,10 +158,15 @@ public class Player : MonoBehaviour
         StartCoroutine(StunRoutine());
     }
 
+    [SerializeField] private AudioClip[] hitClips;
+    [SerializeField] private AudioClip[] hitClipsBumps;
+    
+    
     private IEnumerator StunRoutine()
     {
         _characterInput.Player.Disable();
-        // TODO: sound
+        AudioManager.Instance.PlaySoundEffect(hitClips[Random.Range(0, hitClips.Length)]);
+        AudioManager.Instance.PlaySoundEffect(hitClipsBumps[Random.Range(0, hitClipsBumps.Length)]);
         _rb.linearVelocity = Vector2.zero;
         yield return new WaitForSeconds(0.1f);
         _characterInput.Player.Enable();
@@ -193,6 +220,8 @@ public class Player : MonoBehaviour
         DoParry();
     }
 
+    [SerializeField] private AudioClip[] parryClips;
+
     private void DoParry()
     {
         // TODO: aggro no jump?
@@ -203,6 +232,7 @@ public class Player : MonoBehaviour
         }
         
         parryManager.DoParry();
+        AudioManager.Instance.PlaySoundEffect(parryClips[Random.Range(0, parryClips.Length)]);
         //bossHealth.HitParry();
         
         if (_isInAggroMode) return;
@@ -226,6 +256,9 @@ public class Player : MonoBehaviour
         _characterInput.Player.Parry.performed -= ParryOnperformed;
         
         _characterInput.Player.ActivateAggro.performed -= ActivateAggroOnperformed;
+        
+        
+        AggroChanged -= PlaySoundsOnAggro;
     }
     
     private void FixedUpdate()
@@ -252,10 +285,15 @@ public class Player : MonoBehaviour
         animator.SetBool(IsWalking, _isGrounded && _movement != 0);
     }
 
+    [SerializeField] private AudioClip[] jumpClips;
+    
+
     private void Jump()
     {
         _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, 0);
         _rb.AddForce(Vector2.up * force,  ForceMode2D.Impulse);
+        
+        AudioManager.Instance.PlaySoundEffect(jumpClips[Random.Range(0, jumpClips.Length)]);
         
         animator.SetBool(IsJumping, true);
     }

@@ -1,7 +1,7 @@
-using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Projectile : MonoBehaviour
 {
@@ -22,6 +22,10 @@ public class Projectile : MonoBehaviour
 
     [SerializeField] private ParticleSystem hitEffectInstance;
     [SerializeField] private float shakeStrength = 0.1f;
+
+    [SerializeField] private AudioClip[] bossHitClips;
+    [SerializeField] private AudioClip[] reverseClips;
+    
     
 
     private void Start()
@@ -38,6 +42,7 @@ public class Projectile : MonoBehaviour
                 other.GetComponent<Health>().HitParry();
                 other.transform.DOShakePosition(0.5f, shakeStrength);
                 hitEffectInstance.startColor = playerColor;
+                AudioManager.Instance.PlaySoundEffect(bossHitClips[Random.Range(0, bossHitClips.Length)]);
                 StartCoroutine(DestroyRoutine());
             }
         }
@@ -91,6 +96,8 @@ public class Projectile : MonoBehaviour
     public void HitBoss()
     {
         if (_isFlipped) return;
+        
+        AudioManager.Instance.PlaySoundEffect(reverseClips[Random.Range(0, reverseClips.Length)]);
         
         _isFlipped = true;
         _spriteRenderer.sprite = flippedSprite;
