@@ -1,4 +1,7 @@
+using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -9,6 +12,9 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private GameObject creditsPanel;
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject todosPanel;
+
+    [SerializeField] private GameObject selectedButton;
+    
     
     private SceneLoader _sceneLoader;
     
@@ -19,7 +25,12 @@ public class MainMenuController : MonoBehaviour
         
         _sceneLoader = FindObjectOfType<SceneLoader>();
     }
-    
+
+    private void Start()
+    {
+        EventSystem.current.SetSelectedGameObject(selectedButton);
+    }
+
     public void Play()
     {
         //Debug.Log("Play!");

@@ -677,7 +677,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1835743534}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1528172589
@@ -723,6 +723,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7731025183237380200, guid: b95aadce8b095684b8beae97d4451279, type: 3}
+      propertyPath: selectedButton
+      value: 
+      objectReference: {fileID: 1835743534}
     - target: {fileID: 7731025183237380203, guid: b95aadce8b095684b8beae97d4451279, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -876,6 +880,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7731025183825737847, guid: b95aadce8b095684b8beae97d4451279, type: 3}
+      propertyPath: m_SpriteState.m_SelectedSprite
+      value: 
+      objectReference: {fileID: 1605134019207926679, guid: 38c39035c07d7cb439a3adcd99b3a482, type: 3}
+    - target: {fileID: 7731025183825737847, guid: b95aadce8b095684b8beae97d4451279, type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
       objectReference: {fileID: 1605134019207926679, guid: 38c39035c07d7cb439a3adcd99b3a482, type: 3}
@@ -959,6 +967,10 @@ PrefabInstance:
       propertyPath: m_Transition
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7731025184667524097, guid: b95aadce8b095684b8beae97d4451279, type: 3}
+      propertyPath: m_SpriteState.m_SelectedSprite
+      value: 
+      objectReference: {fileID: 5359869300366094821, guid: 569e795ad2c3dad4490810a08d94b1e4, type: 3}
     - target: {fileID: 7731025184667524097, guid: b95aadce8b095684b8beae97d4451279, type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
@@ -1059,6 +1071,11 @@ PrefabInstance:
       addedObject: {fileID: 430550509}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b95aadce8b095684b8beae97d4451279, type: 3}
+--- !u!1 &1835743534 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7731025183825737849, guid: b95aadce8b095684b8beae97d4451279, type: 3}
+  m_PrefabInstance: {fileID: 1835743533}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

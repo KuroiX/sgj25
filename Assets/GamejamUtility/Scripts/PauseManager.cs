@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PauseManager : MonoBehaviour
@@ -26,6 +27,9 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenuPanel;
     [SerializeField] private GameObject volumePanel;
 
+    [SerializeField] private GameObject firstSelected;
+    
+
     private float _timeScale;
 
     private void Awake()
@@ -39,7 +43,7 @@ public class PauseManager : MonoBehaviour
 
     private void Update()
     {
-        if (!Keyboard.current.escapeKey.wasReleasedThisFrame) return;
+        if (!Keyboard.current.escapeKey.wasReleasedThisFrame && !(Gamepad.current is not null && Gamepad.current.startButton.wasPressedThisFrame)) return;
 
         TriggerPauseMenu();
     }
@@ -51,6 +55,11 @@ public class PauseManager : MonoBehaviour
         pauseMenu.SetActive(IsPaused);
         pauseMenuPanel.SetActive(true);
         volumePanel.SetActive(false);
+
+        if (IsPaused)
+        {
+            EventSystem.current.SetSelectedGameObject(firstSelected);
+        }
         
         if (pauseTimeScale)
         {
