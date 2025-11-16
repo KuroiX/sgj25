@@ -1,9 +1,16 @@
+using System.Collections;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private Health playerHealth;
     [SerializeField] private Health bossHealth;
+
+    [SerializeField] private GameObject chillOut;
+    [SerializeField] private GameObject burnOut;
+
+    private bool _gameOver;
+    
     
     private void OnEnable()
     {
@@ -19,16 +26,26 @@ public class GameManager : MonoBehaviour
 
     private void CheckWin(float currentHealth, float maxHealth)
     {
-        if (currentHealth > 0) return;
+        if (currentHealth > 0 || _gameOver) return;
         
-        Debug.Log("Win!");
+        chillOut.SetActive(true);
+        _gameOver = true;
+        StartCoroutine(EndGameRoutine());
     }
 
     private void CheckLose(float currentHealth, float maxHealth)
     {
-        if (currentHealth > 0) return;
+        if (maxHealth > 0 || _gameOver) return;
         
-        Debug.Log("Lose!");
+        burnOut.SetActive(true);
+        _gameOver = true;
+        StartCoroutine(EndGameRoutine());
+    }
+
+    private IEnumerator EndGameRoutine()
+    {
+        yield return new WaitForSeconds(3);
+        FindFirstObjectByType<SceneLoader>().LoadSceneByIndex(0);
     }
 
 }
