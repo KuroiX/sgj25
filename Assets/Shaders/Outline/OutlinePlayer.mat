@@ -56,7 +56,7 @@ Material:
     m_Floats:
     - _Thickness: 0.0118
     m_Colors:
-    - _Color: {r: 0.35686275, g: 0.40392157, b: 0.8980392, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Shadow: {r: 0, g: 0, b: 0, a: 0}
     - _ShadowColor: {r: 0.48584908, g: 1, b: 0.9072512, a: 0}
     - _ShadowOffset: {r: 0, g: -0.02, b: 0, a: 0}
