@@ -12,6 +12,7 @@ public class Health : MonoBehaviour
     [SerializeField] private float parryRage;
     [SerializeField] private float hitRage;
     [SerializeField] private float aggroSpeed;
+    [SerializeField] private float aggroTime;
     
     [SerializeField] private Transform shakeCamera;
     [SerializeField] private float shakeStrength = 1f;
@@ -59,7 +60,10 @@ public class Health : MonoBehaviour
     {
         if (!_isInAggroMode) return;
         
-        CurrentHealth -= Mathf.Clamp(Time.deltaTime * aggroSpeed, 0,  MaxHealth*2);
+        //CurrentHealth -= Mathf.Clamp(Time.deltaTime * aggroSpeed, 0,  MaxHealth*2);
+        CurrentHealth = Mathf.Clamp((1 - _timePassed/aggroTime) * _currentHealthSaver, 0, maxHealth*2);
+        
+        _timePassed += Time.deltaTime;
 
         if (CurrentHealth <= 0)
         {
@@ -71,9 +75,14 @@ public class Health : MonoBehaviour
         }
     }
 
+    private float _currentHealthSaver;
+    private float _timePassed;
+
     public void SetAggroMode()
     {
         _isInAggroMode = true;
+        _currentHealthSaver = CurrentHealth;
+        _timePassed = 0;
         _saveDifference = _currentHealth - maxHealth;
     }
 }

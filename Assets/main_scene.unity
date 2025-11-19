@@ -1590,6 +1590,7 @@ MonoBehaviour:
   parryRage: -10
   hitRage: 0
   aggroSpeed: 0
+  aggroTime: 0
   shakeCamera: {fileID: 0}
   shakeStrength: 1
 --- !u!212 &631041033
@@ -4397,6 +4398,7 @@ MonoBehaviour:
   parryRage: 7
   hitRage: 20
   aggroSpeed: 15
+  aggroTime: 6
   shakeCamera: {fileID: 736760267}
   shakeStrength: 1
 --- !u!61 &1651707778
