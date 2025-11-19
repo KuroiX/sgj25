@@ -47,6 +47,7 @@ public class Player : MonoBehaviour
             _isInAggroMode = value;
             animators[0].SetBool(IsAggro, _isInAggroMode);
             animators[1].SetBool(IsAggro, _isInAggroMode);
+            material.SetColor(Color1, value ? parryOutline : white);
             //animator.SetTrigger(Kick);
             AggroChanged?.Invoke(_isInAggroMode);
         }
@@ -256,6 +257,18 @@ public class Player : MonoBehaviour
                 break;
             }
             
+            counter += Time.deltaTime;
+            
+            if (counter >= 0.35f)
+            {
+                break;
+            }
+            
+            yield return null;
+        }
+
+        while (true)
+        {
             counter += Time.deltaTime;
             
             if (counter >= 0.35f)
