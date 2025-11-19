@@ -4116,6 +4116,10 @@ PrefabInstance:
       value: -28.7
       objectReference: {fileID: 0}
     - target: {fileID: 720177155871638069, guid: 249aab5b8ed980c41af915ed74184083, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 720177155871638069, guid: 249aab5b8ed980c41af915ed74184083, type: 3}
       propertyPath: m_Transition
       value: 2
       objectReference: {fileID: 0}
@@ -4174,11 +4178,11 @@ PrefabInstance:
     - target: {fileID: 720177156882301434, guid: 249aab5b8ed980c41af915ed74184083, type: 3}
       propertyPath: m_SpriteState.m_SelectedSprite
       value: 
-      objectReference: {fileID: 5359869300366094821, guid: 569e795ad2c3dad4490810a08d94b1e4, type: 3}
+      objectReference: {fileID: 2656814244540184665, guid: 277f63d896d08a546aad4b58b1853c9b, type: 3}
     - target: {fileID: 720177156882301434, guid: 249aab5b8ed980c41af915ed74184083, type: 3}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 5359869300366094821, guid: 569e795ad2c3dad4490810a08d94b1e4, type: 3}
+      objectReference: {fileID: 2656814244540184665, guid: 277f63d896d08a546aad4b58b1853c9b, type: 3}
     - target: {fileID: 720177156882301435, guid: 249aab5b8ed980c41af915ed74184083, type: 3}
       propertyPath: m_Type
       value: 0
@@ -4186,7 +4190,7 @@ PrefabInstance:
     - target: {fileID: 720177156882301435, guid: 249aab5b8ed980c41af915ed74184083, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -2868638546160079742, guid: a0492a0d8d2b79846acd7be076b9e984, type: 3}
+      objectReference: {fileID: 6435000718013438915, guid: 60aefa4a7a74bd54587abc91665a7b61, type: 3}
     - target: {fileID: 720177156882301435, guid: 249aab5b8ed980c41af915ed74184083, type: 3}
       propertyPath: m_PreserveAspect
       value: 1
@@ -4210,6 +4214,7 @@ GameObject:
   - component: {fileID: 1651707775}
   - component: {fileID: 1651707773}
   - component: {fileID: 1651707772}
+  - component: {fileID: 1651707778}
   - component: {fileID: 1651707776}
   - component: {fileID: 1651707777}
   m_Layer: 0
@@ -4337,6 +4342,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  standingCollider: {fileID: 1651707772}
+  crouchingCollider: {fileID: 1651707778}
   aggroClips:
   - {fileID: 8300000, guid: 76cc94364becbd44ebc8db88c609a895, type: 3}
   - {fileID: 8300000, guid: 8227b91a7083b13489ff8415f96c957e, type: 3}
@@ -4377,6 +4384,52 @@ MonoBehaviour:
   aggroSpeed: 15
   shakeCamera: {fileID: 736760267}
   shakeStrength: 1
+--- !u!61 &1651707778
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651707771}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: -0.875}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.5, y: 1.25}
+  m_EdgeRadius: 0
 --- !u!1 &1677512597
 GameObject:
   m_ObjectHideFlags: 0

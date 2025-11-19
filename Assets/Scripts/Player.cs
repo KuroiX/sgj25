@@ -11,16 +11,19 @@ public class Player : MonoBehaviour
     private static readonly int IsParryJumping = Animator.StringToHash("IsParryJumping");
     private static readonly int Kick = Animator.StringToHash("Kick");
     private static readonly int IsAggro = Animator.StringToHash("IsAggro");
+    private static readonly int IsCrouching = Animator.StringToHash("IsCrouching");
 
-    [Header("Assign in Editor")] 
-    [SerializeField] private ParryManager parryManager;
+    [Header("Assign in Editor")] [SerializeField]
+    private ParryManager parryManager;
+
     [SerializeField] private Health bossHealth;
     [SerializeField] private Health playerHealth;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator animator;
-    
-    [Header("Set in Editor")]
-    [SerializeField] private float force;
+
+    [Header("Set in Editor")] [SerializeField]
+    private float force;
+
     [SerializeField] private float forceMultiplier;
     [SerializeField] private float acceleration;
     [SerializeField] private float moveSpeed;
@@ -53,8 +56,8 @@ public class Player : MonoBehaviour
     private bool _isAllowedToJump;
 
     private bool _isInAggroMode;
-    
-    
+
+
     private void Awake()
     {
         _characterInput = new CharacterInput();
@@ -63,27 +66,53 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _collider = GetComponent<Collider2D>();
+        _collider = standingCollider;
     }
 
     private void OnEnable()
     {
         _characterInput.Enable();
-        
+
         _characterInput.Player.Move.performed += MoveOnperformed;
         _characterInput.Player.Move.canceled += MoveOnperformed;
         _characterInput.Player.Jump.performed += JumpOnperformed;
         _characterInput.Player.Parry.performed += ParryOnperformed;
         _characterInput.Player.ActivateAggro.performed += ActivateAggroOnperformed;
-        
+        _characterInput.Player.Crouch.performed += CrouchOnperformed;
+        _characterInput.Player.Crouch.canceled += CrouchOnperformed;
+
         playerHealth.OnHealthChange += PlayerHealthOnHealthChange;
-        
+
         AggroChanged += PlaySoundsOnAggro;
     }
+    
+    #region Crouching
+
+    private bool _isCrouching;
+
+    [SerializeField] private Collider2D standingCollider;
+    [SerializeField] private Collider2D crouchingCollider;
+    
+
+    private void CrouchOnperformed(InputAction.CallbackContext obj)
+    {
+        if (!_isGrounded) return;
+
+        var result = obj.performed || !obj.canceled;
+
+        _isCrouching = result;
+        standingCollider.enabled = !result;
+        crouchingCollider.enabled = result;
+        animator.SetBool(IsCrouching, result);
+        
+        _collider = result ? crouchingCollider : standingCollider;
+    }
+    
+    #endregion
 
     [SerializeField] private AudioClip[] aggroClips;
     [SerializeField] private AudioClip aggroMusic;
-    
+
 
     private void PlaySoundsOnAggro(bool obj)
     {
@@ -108,7 +137,7 @@ public class Player : MonoBehaviour
             StopCoroutines();
             StartCoroutine(InvincibleRoutine());
         }
-        
+
         if (!IsInAggroMode && currentHealth > maxHealth)
         {
             IsInAggroMode = true;
@@ -148,7 +177,7 @@ public class Player : MonoBehaviour
         spriteRenderer.enabled = false;
         yield return new WaitForSeconds(0.1f);
         spriteRenderer.enabled = true;
-        
+
         IsInvincible = false;
     }
 
@@ -160,8 +189,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] private AudioClip[] hitClips;
     [SerializeField] private AudioClip[] hitClipsBumps;
-    
-    
+
+
     private IEnumerator StunRoutine()
     {
         _characterInput.Player.Disable();
@@ -186,7 +215,7 @@ public class Player : MonoBehaviour
     private void ParryOnperformed(InputAction.CallbackContext obj)
     {
         if (IsInAggroMode) return;
-        
+
         animator.SetTrigger(Kick);
         animator.SetBool(IsParryJumping, false);
 
@@ -197,7 +226,7 @@ public class Player : MonoBehaviour
     private IEnumerator KickRoutine()
     {
         yield return new WaitForSeconds(0.1f);
-        
+
         // ENUMERATOR
         ParryState parryState = parryManager.TriggerParry();
 
@@ -209,7 +238,7 @@ public class Player : MonoBehaviour
     private void JumpOnperformed(InputAction.CallbackContext obj)
     {
         if (!_isAllowedToJump || !_isGrounded) return;
-        
+
         Jump();
         _isAllowedToJump = false;
     }
@@ -230,90 +259,94 @@ public class Player : MonoBehaviour
             ParryJump();
             animator.SetBool(IsParryJumping, true);
         }
-        
+
         parryManager.DoParry();
         AudioManager.Instance.PlaySoundEffect(parryClips[Random.Range(0, parryClips.Length)]);
         //bossHealth.HitParry();
-        
+
         if (_isInAggroMode) return;
-        
+
         playerHealth.HitParry();
     }
-    
+
     private void MoveOnperformed(InputAction.CallbackContext obj)
     {
         _movement = obj.ReadValue<float>();
     }
-    
+
     private void OnDisable()
     {
         _characterInput.Disable();
-        
+
         _characterInput.Player.Move.performed -= MoveOnperformed;
-        
+
         _characterInput.Player.Move.canceled -= MoveOnperformed;
         _characterInput.Player.Jump.performed -= JumpOnperformed;
         _characterInput.Player.Parry.performed -= ParryOnperformed;
-        
+
         _characterInput.Player.ActivateAggro.performed -= ActivateAggroOnperformed;
         
         
+        _characterInput.Player.Crouch.performed -= CrouchOnperformed;
+        _characterInput.Player.Crouch.canceled -= CrouchOnperformed;
+
+
         AggroChanged -= PlaySoundsOnAggro;
     }
-    
+
     private void FixedUpdate()
     {
         bool wasGrounded = _isGrounded;
         _isGrounded = CheckGrounded();
-        
+
         if (!wasGrounded && _isGrounded)
         {
             Land();
         }
-        
+
         DrawBoxDebug();
-        
+
         Vector2 velocity = _rb.linearVelocity;
-        
+
         float currentSpeed = velocity.x;
-        float targetSpeed = _movement * moveSpeed;
-        
+        float targetSpeed = _movement * moveSpeed * (_isCrouching ? 0.3f : 1f);
+
         float newSpeed = Mathf.Lerp(currentSpeed, targetSpeed, acceleration);
-        
+
         _rb.linearVelocity = new Vector2(newSpeed, _rb.linearVelocity.y);
 
         animator.SetBool(IsWalking, _isGrounded && _movement != 0);
     }
 
     [SerializeField] private AudioClip[] jumpClips;
-    
+
 
     private void Jump()
     {
         _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, 0);
-        _rb.AddForce(Vector2.up * force,  ForceMode2D.Impulse);
-        
+        _rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+
         AudioManager.Instance.PlaySoundEffect(jumpClips[Random.Range(0, jumpClips.Length)]);
-        
+
         animator.SetBool(IsJumping, true);
     }
 
     private void ParryJump()
     {
         _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, 0);
-        _rb.AddForce((Vector2.up*2 + Vector2.left).normalized * force,  ForceMode2D.Impulse);
-        
+        _rb.AddForce((Vector2.up * 2 + Vector2.left).normalized * force, ForceMode2D.Impulse);
+
         animator.SetBool(IsParryJumping, true);
     }
 
     private void Land()
     {
         _isAllowedToJump = true;
-        
+
         animator.SetBool(IsJumping, false);
         animator.SetBool(IsParryJumping, false);
     }
-    
+
     private bool CheckGrounded()
     {
         Bounds bounds = _collider.bounds;
@@ -329,7 +362,7 @@ public class Player : MonoBehaviour
 
         return result;
     }
-    
+
     private void DrawBoxDebug()
     {
         Color rayColor = _isGrounded ? Color.green : Color.red;
