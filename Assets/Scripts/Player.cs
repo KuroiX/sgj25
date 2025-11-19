@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     private static readonly int Kick = Animator.StringToHash("Kick");
     private static readonly int IsAggro = Animator.StringToHash("IsAggro");
     private static readonly int IsCrouching = Animator.StringToHash("IsCrouching");
+    private static readonly int Color1 = Shader.PropertyToID("_Color");
 
     [Header("Assign in Editor")] [SerializeField]
     private ParryManager parryManager;
@@ -19,7 +20,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Health bossHealth;
     [SerializeField] private Health playerHealth;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Animator animator;
+    [SerializeField] private Animator[] animators;
 
     [Header("Set in Editor")] [SerializeField]
     private float force;
@@ -32,6 +33,10 @@ public class Player : MonoBehaviour
     [SerializeField] private float yMargin;
     [SerializeField] private LayerMask groundLayerMask;
 
+    [SerializeField] private Material material;
+    [SerializeField] private Color white;
+    [SerializeField] private Color parryOutline;
+
     public event Action<bool> AggroChanged;
 
     public bool IsInAggroMode
@@ -40,7 +45,9 @@ public class Player : MonoBehaviour
         set
         {
             _isInAggroMode = value;
-            animator.SetBool(IsAggro, _isInAggroMode);
+            animators[0].SetBool(IsAggro, _isInAggroMode);
+            animators[1].SetBool(IsAggro, _isInAggroMode);
+            material.SetColor(Color1, value ? parryOutline : white);
             //animator.SetTrigger(Kick);
             AggroChanged?.Invoke(_isInAggroMode);
         }
@@ -103,7 +110,8 @@ public class Player : MonoBehaviour
         _isCrouching = result;
         standingCollider.enabled = !result;
         crouchingCollider.enabled = result;
-        animator.SetBool(IsCrouching, result);
+        animators[0].SetBool(IsCrouching, result);
+        animators[1].SetBool(IsCrouching, result);
         
         _collider = result ? crouchingCollider : standingCollider;
     }
@@ -150,9 +158,16 @@ public class Player : MonoBehaviour
         IsInvincible = false;
         spriteRenderer.enabled = true;
         StopAllCoroutines();
+        material.SetColor(Color1, white);
     }
 
-    public bool IsInvincible { get; private set; }
+    public bool IsInvincible
+    {
+        get => _isInvincible || _isInAggroMode;
+        private set => _isInvincible = value;
+    }
+
+    private bool _isInvincible;
 
     private IEnumerator InvincibleRoutine()
     {
@@ -216,8 +231,10 @@ public class Player : MonoBehaviour
     {
         if (IsInAggroMode) return;
 
-        animator.SetTrigger(Kick);
-        animator.SetBool(IsParryJumping, false);
+        animators[0].SetTrigger(Kick);
+        animators[1].SetTrigger(Kick);
+        animators[0].SetBool(IsParryJumping, false);
+        animators[1].SetBool(IsParryJumping, false);
 
         StopCoroutines();
         StartCoroutine(KickRoutine());
@@ -225,14 +242,44 @@ public class Player : MonoBehaviour
 
     private IEnumerator KickRoutine()
     {
-        yield return new WaitForSeconds(0.1f);
+        material.SetColor(Color1, parryOutline);
+        yield return new WaitForSeconds(0.05f);
 
-        // ENUMERATOR
-        ParryState parryState = parryManager.TriggerParry();
+        float counter = 0;
+        while (true)
+        {
+            // ENUMERATOR
+            ParryState parryState = parryManager.TriggerParry();
 
-        if (parryState != ParryState.Perfect && parryState != ParryState.Early) yield break;
+            if (parryState == ParryState.Perfect || parryState == ParryState.Late)
+            {
+                DoParry();
+                break;
+            }
+            
+            counter += Time.deltaTime;
+            
+            if (counter >= 0.35f)
+            {
+                break;
+            }
+            
+            yield return null;
+        }
 
-        DoParry();
+        while (true)
+        {
+            counter += Time.deltaTime;
+            
+            if (counter >= 0.35f)
+            {
+                break;
+            }
+            
+            yield return null;
+        }
+        
+        material.SetColor(Color1, white);
     }
 
     private void JumpOnperformed(InputAction.CallbackContext obj)
@@ -253,11 +300,11 @@ public class Player : MonoBehaviour
 
     private void DoParry()
     {
-        // TODO: aggro no jump?
-        if (!_isInAggroMode && !_isGrounded)
+        if (!_isGrounded)
         {
             ParryJump();
-            animator.SetBool(IsParryJumping, true);
+            animators[0].SetBool(IsParryJumping, true);
+            animators[1].SetBool(IsParryJumping, true);
         }
 
         parryManager.DoParry();
@@ -315,7 +362,8 @@ public class Player : MonoBehaviour
 
         _rb.linearVelocity = new Vector2(newSpeed, _rb.linearVelocity.y);
 
-        animator.SetBool(IsWalking, _isGrounded && _movement != 0);
+        animators[0].SetBool(IsWalking, _isGrounded && _movement != 0);
+        animators[1].SetBool(IsWalking, _isGrounded && _movement != 0);
     }
 
     [SerializeField] private AudioClip[] jumpClips;
@@ -328,7 +376,8 @@ public class Player : MonoBehaviour
 
         AudioManager.Instance.PlaySoundEffect(jumpClips[Random.Range(0, jumpClips.Length)]);
 
-        animator.SetBool(IsJumping, true);
+        animators[0].SetBool(IsJumping, true);
+        animators[1].SetBool(IsJumping, true);
     }
 
     private void ParryJump()
@@ -336,15 +385,18 @@ public class Player : MonoBehaviour
         _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, 0);
         _rb.AddForce((Vector2.up * 2 + Vector2.left).normalized * force, ForceMode2D.Impulse);
 
-        animator.SetBool(IsParryJumping, true);
+        animators[0].SetBool(IsParryJumping, true);
+        animators[1].SetBool(IsParryJumping, true);
     }
 
     private void Land()
     {
         _isAllowedToJump = true;
 
-        animator.SetBool(IsJumping, false);
-        animator.SetBool(IsParryJumping, false);
+        animators[0].SetBool(IsJumping, false);
+        animators[1].SetBool(IsJumping, false);
+        animators[0].SetBool(IsParryJumping, false);
+        animators[1].SetBool(IsParryJumping, false);
     }
 
     private bool CheckGrounded()
