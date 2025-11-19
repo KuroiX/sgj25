@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Health bossHealth;
     [SerializeField] private Health playerHealth;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Animator animator;
+    [SerializeField] private Animator[] animators;
 
     [Header("Set in Editor")] [SerializeField]
     private float force;
@@ -45,7 +45,8 @@ public class Player : MonoBehaviour
         set
         {
             _isInAggroMode = value;
-            animator.SetBool(IsAggro, _isInAggroMode);
+            animators[0].SetBool(IsAggro, _isInAggroMode);
+            animators[1].SetBool(IsAggro, _isInAggroMode);
             //animator.SetTrigger(Kick);
             AggroChanged?.Invoke(_isInAggroMode);
         }
@@ -108,7 +109,8 @@ public class Player : MonoBehaviour
         _isCrouching = result;
         standingCollider.enabled = !result;
         crouchingCollider.enabled = result;
-        animator.SetBool(IsCrouching, result);
+        animators[0].SetBool(IsCrouching, result);
+        animators[1].SetBool(IsCrouching, result);
         
         _collider = result ? crouchingCollider : standingCollider;
     }
@@ -228,8 +230,10 @@ public class Player : MonoBehaviour
     {
         if (IsInAggroMode) return;
 
-        animator.SetTrigger(Kick);
-        animator.SetBool(IsParryJumping, false);
+        animators[0].SetTrigger(Kick);
+        animators[1].SetTrigger(Kick);
+        animators[0].SetBool(IsParryJumping, false);
+        animators[1].SetBool(IsParryJumping, false);
 
         StopCoroutines();
         StartCoroutine(KickRoutine());
@@ -286,7 +290,8 @@ public class Player : MonoBehaviour
         if (!_isGrounded)
         {
             ParryJump();
-            animator.SetBool(IsParryJumping, true);
+            animators[0].SetBool(IsParryJumping, true);
+            animators[1].SetBool(IsParryJumping, true);
         }
 
         parryManager.DoParry();
@@ -344,7 +349,8 @@ public class Player : MonoBehaviour
 
         _rb.linearVelocity = new Vector2(newSpeed, _rb.linearVelocity.y);
 
-        animator.SetBool(IsWalking, _isGrounded && _movement != 0);
+        animators[0].SetBool(IsWalking, _isGrounded && _movement != 0);
+        animators[1].SetBool(IsWalking, _isGrounded && _movement != 0);
     }
 
     [SerializeField] private AudioClip[] jumpClips;
@@ -357,7 +363,8 @@ public class Player : MonoBehaviour
 
         AudioManager.Instance.PlaySoundEffect(jumpClips[Random.Range(0, jumpClips.Length)]);
 
-        animator.SetBool(IsJumping, true);
+        animators[0].SetBool(IsJumping, true);
+        animators[1].SetBool(IsJumping, true);
     }
 
     private void ParryJump()
@@ -365,15 +372,18 @@ public class Player : MonoBehaviour
         _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, 0);
         _rb.AddForce((Vector2.up * 2 + Vector2.left).normalized * force, ForceMode2D.Impulse);
 
-        animator.SetBool(IsParryJumping, true);
+        animators[0].SetBool(IsParryJumping, true);
+        animators[1].SetBool(IsParryJumping, true);
     }
 
     private void Land()
     {
         _isAllowedToJump = true;
 
-        animator.SetBool(IsJumping, false);
-        animator.SetBool(IsParryJumping, false);
+        animators[0].SetBool(IsJumping, false);
+        animators[1].SetBool(IsJumping, false);
+        animators[0].SetBool(IsParryJumping, false);
+        animators[1].SetBool(IsParryJumping, false);
     }
 
     private bool CheckGrounded()

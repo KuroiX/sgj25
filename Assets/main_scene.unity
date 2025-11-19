@@ -863,7 +863,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &469717935
 Transform:
   m_ObjectHideFlags: 0
@@ -1235,7 +1235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1651707776}
-  rageVisuals: {fileID: 469717934}
+  rageVisuals: {fileID: 469717938}
 --- !u!1 &585413490
 GameObject:
   m_ObjectHideFlags: 0
@@ -3551,8 +3551,8 @@ Transform:
   m_GameObject: {fileID: 1316403417}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.224, y: -0.0279, z: 0}
-  m_LocalScale: {x: 0.87031406, y: 2.3253407, z: 1}
+  m_LocalPosition: {x: -0.91, y: 0.157, z: 0}
+  m_LocalScale: {x: 2.8005934, y: 3.2701392, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1963766152}
@@ -4342,7 +4342,9 @@ MonoBehaviour:
   bossHealth: {fileID: 631041032}
   playerHealth: {fileID: 1651707777}
   spriteRenderer: {fileID: 272543184}
-  animator: {fileID: 272543185}
+  animators:
+  - {fileID: 272543185}
+  - {fileID: 469717937}
   force: 12
   forceMultiplier: 2
   acceleration: 0.2

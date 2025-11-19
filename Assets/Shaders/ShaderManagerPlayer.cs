@@ -4,7 +4,7 @@ using UnityEngine;
 public class ShaderManagerPlayer : MonoBehaviour
 {
     [SerializeField] private Player player;
-    [SerializeField] private GameObject rageVisuals;
+    [SerializeField] private SpriteRenderer rageVisuals;
 
     void OnEnable()
     {
@@ -18,11 +18,11 @@ public class ShaderManagerPlayer : MonoBehaviour
 
     private void Start()
     {
-        rageVisuals.SetActive(false);
+        rageVisuals.enabled = false;
     }
 
     private void PlayerOnAggroChanged(bool aggroEnabled)
     {
-        rageVisuals.SetActive(aggroEnabled);
+        rageVisuals.enabled = aggroEnabled;
     }
 }
