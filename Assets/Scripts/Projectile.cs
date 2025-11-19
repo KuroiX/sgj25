@@ -22,7 +22,7 @@ public class Projectile : MonoBehaviour
     private float _timeAlive = 0f;
 
     [SerializeField] private ParticleSystem hitEffectInstance;
-    [SerializeField] private float shakeStrength = 0.1f;
+    [SerializeField] private float shakeStrength = 0.3f;
 
     [SerializeField] private AudioClip[] bossHitClips;
     [SerializeField] private AudioClip[] reverseClips;
@@ -68,7 +68,7 @@ public class Projectile : MonoBehaviour
             if (other.CompareTag("Boss"))
             {
                 other.GetComponent<Health>().HitParry();
-                other.transform.DOShakePosition(0.5f, shakeStrength);
+                other.transform.DOShakePosition(0.5f, 1);
                 hitEffectInstance.startColor = playerColor;
                 AudioManager.Instance.PlaySoundEffect(bossHitClips[Random.Range(0, bossHitClips.Length)]);
                 StartCoroutine(DestroyRoutine());
