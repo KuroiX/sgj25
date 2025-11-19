@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     private static readonly int Kick = Animator.StringToHash("Kick");
     private static readonly int IsAggro = Animator.StringToHash("IsAggro");
     private static readonly int IsCrouching = Animator.StringToHash("IsCrouching");
+    private static readonly int Color1 = Shader.PropertyToID("_Color");
 
     [Header("Assign in Editor")] [SerializeField]
     private ParryManager parryManager;
@@ -31,6 +32,10 @@ public class Player : MonoBehaviour
     [SerializeField] private float xMargin;
     [SerializeField] private float yMargin;
     [SerializeField] private LayerMask groundLayerMask;
+
+    [SerializeField] private Material material;
+    [SerializeField] private Color white;
+    [SerializeField] private Color parryOutline;
 
     public event Action<bool> AggroChanged;
 
@@ -150,9 +155,16 @@ public class Player : MonoBehaviour
         IsInvincible = false;
         spriteRenderer.enabled = true;
         StopAllCoroutines();
+        material.SetColor(Color1, white);
     }
 
-    public bool IsInvincible { get; private set; }
+    public bool IsInvincible
+    {
+        get => _isInvincible || _isInAggroMode;
+        private set => _isInvincible = value;
+    }
+
+    private bool _isInvincible;
 
     private IEnumerator InvincibleRoutine()
     {
@@ -225,14 +237,32 @@ public class Player : MonoBehaviour
 
     private IEnumerator KickRoutine()
     {
-        yield return new WaitForSeconds(0.1f);
+        material.SetColor(Color1, parryOutline);
+        yield return new WaitForSeconds(0.05f);
 
-        // ENUMERATOR
-        ParryState parryState = parryManager.TriggerParry();
+        float counter = 0;
+        while (true)
+        {
+            // ENUMERATOR
+            ParryState parryState = parryManager.TriggerParry();
 
-        if (parryState != ParryState.Perfect && parryState != ParryState.Early) yield break;
-
-        DoParry();
+            if (parryState == ParryState.Perfect || parryState == ParryState.Late)
+            {
+                DoParry();
+                break;
+            }
+            
+            counter += Time.deltaTime;
+            
+            if (counter >= 0.35f)
+            {
+                break;
+            }
+            
+            yield return null;
+        }
+        
+        material.SetColor(Color1, white);
     }
 
     private void JumpOnperformed(InputAction.CallbackContext obj)
@@ -253,8 +283,7 @@ public class Player : MonoBehaviour
 
     private void DoParry()
     {
-        // TODO: aggro no jump?
-        if (!_isInAggroMode && !_isGrounded)
+        if (!_isGrounded)
         {
             ParryJump();
             animator.SetBool(IsParryJumping, true);
